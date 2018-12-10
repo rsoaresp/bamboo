@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+        <script src="freezeheader.js"></script>
+        
+        <script>
+                $(document).ready(
+                        function () 
+                        {
+                            {% for df in list_df %}
+                                $("#table_{{df}}").freezeHeader({"height": "350px"});
+                            {% endfor %}
+                        })
+        </script>
+
+        <style>
+        
+            .tab 
+            {
+                overflow: hidden;
+                border: 1px solid #668aff;
+                background-color: #ccd8ff;
+            }
+
+            .tab button 
+            {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+        
+
+            .tab button:hover 
+            {
+                background-color: #b3c4ff;
+            }
+        
+
+            .tab button.active 
+            {
+                background-color: #668aff;
+            }
+        
+        
+            .tabcontent 
+            {
+                display: none;
+                padding: 6px 12px;
+                border: 1px solid #668aff;
+                border-top: none;
+            }
+
+            table
+            {
+                font-family: Book Antiqua;
+            }
+            
+            
+            tr:hover 
+            {
+                background-color: #b3c4ff;
+            }
+            
+            table thead 
+            {
+                background-color: #b3c4ff;            
+            }
+
+        </style>
+
+
+    </head>
+    
+    <body>
+    
+    <!-- Add a title for the collection of data frames. -->
+    <h2>{{title}}</h2>
+    
+    <!-- Jinja template for the tab menu -->
+    <div class = "tab">
+        {% for df in list_df %}
+            <button class = "tablinks" onclick = "openTab(event, '{{df}}')">{{df}}</button>
+        {% endfor %}
+    </div>
+    
+       
+    <!-- Here we paste the divs of each table -->
+    {% for div in list_divs %}
+        {{ div }}
+    {% endfor %}
+    
+    
+    <script>
+        function openTab(evt, TabName) 
+        {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) 
+            {
+                tabcontent[i].style.display = "none";
+            }
+            
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++)
+            {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            document.getElementById(TabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+    </script>
+         
+    </body>
+</html> 
